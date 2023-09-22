@@ -1,0 +1,32 @@
+{
+  "name": "method-decorator",
+  "version": "1.0.0",
+  "description": "A decorator that can add more action when execute the function",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist",
+    "start": "npm run build && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swarfte/MethodDecorator.git"
+  },
+  "keywords": [
+    "decorator",
+    "babel"
+  ],
+  "author": "Swarfte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swarfte/MethodDecorator/issues"
+  },
+  "homepage": "https://github.com/swarfte/MethodDecorator#readme",
+  "devDependencies": {
+    "@types/node": "^20.6.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^8.49.0"
+  }
+}
