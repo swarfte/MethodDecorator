@@ -1,10 +1,10 @@
-const { DecoratorClass } = require("./Decorator");
+const { Decorator } = require("./Decorator");
 
 /**
  * a decorator that check the type of the arguments and return value
- * @extends {DecoratorClass}
+ * @extends {Decorator}
  */
-class TypeCheckDecorator extends DecoratorClass {
+class TypeCheckDecorator extends Decorator {
   constructor() {
     super();
 

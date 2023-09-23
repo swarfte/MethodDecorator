@@ -1,10 +1,10 @@
-const { DecoratorClass } = require("./Decorator");
+const { Decorator } = require("./Decorator");
 
 /**
  * a decorator that log the input and output of the function
- * @extends {DecoratorClass}
+ * @extends {Decorator}
  */
-class LogDecorator extends DecoratorClass {
+class LogDecorator extends Decorator {
   constructor() {
     super();
     this.beforeFunc = (func, funcArgs, wrapArgs) => {

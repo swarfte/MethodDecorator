@@ -1,10 +1,10 @@
-const { DecoratorClass } = require("./Decorator");
+const { Decorator } = require("./Decorator");
 
 /**
  * a decorator that transform the type of the arguments and return value
- * @extends {DecoratorClass}
+ * @extends {Decorator}
  */
-class TypeTransformDecorator extends DecoratorClass {
+class TypeTransformDecorator extends Decorator {
   constructor() {
     super();
     this.beforeFunc = (func, funcArgs, wrapArgs) => {

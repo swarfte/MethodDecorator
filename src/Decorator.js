@@ -11,7 +11,7 @@ class Decorator {
 
   /**
    * the function that execute before the wrapped function
-   * @param {function} func
+   * @param {(func,funcArgs,wrapArgs) => void} func
    * @returns {Decorator}
    * @throws {Error} if func is not a function
    */
@@ -25,7 +25,7 @@ class Decorator {
 
   /**
    * the function that execute after the wrapped function
-   * @param {function} func
+   * @param {(func,funcArgs,wrapArgs) => void} func
    * @returns {Decorator}
    * @throws {Error} if func is not a function
    */
@@ -72,6 +72,5 @@ class Decorator {
 }
 
 module.exports = {
-  DecoratorClass: Decorator,
-  Decorator: new Decorator(),
+  Decorator,
 };
