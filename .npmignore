@@ -1,0 +1,5 @@
+.npm-pack-all-tmp
+.src
+.babelrc
+.eslintrc.js
+.gitignore
