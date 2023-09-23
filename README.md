@@ -75,7 +75,7 @@ add(1, 2, 3, 4);
 
 - need to set the type of parameter when use wrap function
 
-- the addition args
+- if the number of wrap arguments is larger than the number of function arguments, the first additional argument will be the type check of return value
 
 - example:
 
@@ -95,6 +95,7 @@ add(1, "2", 3, 4);
 
 - the Decorator that use to transform the type of parameter
 - need to set the type of parameter when use wrap function
+- if the number of wrap arguments is larger than the number of function arguments, the first additional argument will be the type transform of return value
 - example:
 
 ```javascript
