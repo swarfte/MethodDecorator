@@ -11,7 +11,7 @@ class LogDecorator extends DecoratorClass {
       console.log(`[${wrapArgs[0]}] input: [${funcArgs}]`);
     };
     this.afterFunc = (func, funcArgs, wrapArgs) => {
-      console.log(`[${wrapArgs}] return [${funcArgs.slice(-1)}]`);
+      console.log(`[${wrapArgs}] return: [${funcArgs.slice(-1)}]`);
     };
   }
 
@@ -23,7 +23,7 @@ class LogDecorator extends DecoratorClass {
    * @throws {Error} if func is not a function
    * @throws {Error} if label is not a string
    */
-  wrap(func, label = func.name) {
+  wrap(func, label = "log") {
     if (typeof label !== "string") {
       throw new Error("label must be a string");
     }

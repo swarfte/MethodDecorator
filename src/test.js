@@ -1,36 +1,18 @@
-const { Decorator, LogDecorator, TypeCheckDecorator } = require("./index");
+const {
+  Decorator,
+  LogDecorator,
+  TypeCheckDecorator,
+  TypeTransformDecorator,
+} = require("./index");
 
-Decorator.before((func, funcArgs) => {
-  const largest = Math.max(...funcArgs);
-  console.log(`the largest number ${largest}`);
-}).after((func, funcArgs) => {
-  console.log(`the output ${funcArgs.slice(-1)}`);
-});
-
-// const sum = Decorator.wrap((...args) => {
-//   return args.reduce((acc, curr) => acc + curr, 0);
-// });
-
-// sum(1, 2, 3, 4, 5);
-
-const sub = LogDecorator.wrap((a, b) => a - b, "sub");
-sub(2, 3);
-
-const accSub = LogDecorator.wrap((...args) => {
-  return args.reduce((acc, curr) => acc - curr, 0);
-});
-
-accSub(1, 2, 3, 4);
-
-const accAdd = TypeCheckDecorator.wrap(
-  (...args) => {
-    return args.reduce((acc, curr) => acc + curr, 0);
-  },
-  Number,
-  Number,
-  Number,
-  Number,
-  Number,
-);
-
-console.log(accAdd(1, 2, 3, 4));
+// example
+let add = (...args) => {
+  return args.reduce((acc, cur) => acc + cur, 0);
+};
+add = LogDecorator.wrap(add, "first");
+add = TypeCheckDecorator.wrap(add, Number, Number, Number, Number, Number);
+add = TypeTransformDecorator.wrap(add, Number, Number, Number, Number, String);
+add = LogDecorator.wrap(add, "second");
+// add = LogDecorator.wrap(add, "typeCheck");
+let result = add(1, "2", 3, true);
+console.log(typeof result);

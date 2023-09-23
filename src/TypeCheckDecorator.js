@@ -9,9 +9,9 @@ class TypeCheckDecorator extends DecoratorClass {
     super();
 
     this.beforeFunc = (func, funcArgs, wrapArgs) => {
-      const inputTypes = wrapArgs.slice(0, -1);
-      if (inputTypes.length !== funcArgs.length) {
-        throw new Error("incorrect number of arguments");
+      let inputTypes = wrapArgs;
+      if (wrapArgs.length === funcArgs.length + 1) {
+        inputTypes = wrapArgs.slice(0, -1);
       }
 
       inputTypes.forEach((type, index) => {
@@ -26,14 +26,17 @@ class TypeCheckDecorator extends DecoratorClass {
     };
 
     this.afterFunc = (func, funcArgs, wrapArgs) => {
-      const returnType = wrapArgs.slice(-1)[0];
-
-      if (typeof funcArgs.slice(-1)[0] !== returnType.name.toLowerCase()) {
-        throw new Error(
-          `incorrect type of return, expected ${
-            returnType.name
-          }, but got ${typeof funcArgs.slice(-1)[0]}`,
-        );
+      if (funcArgs.length === wrapArgs.length) {
+        const returnType = wrapArgs[wrapArgs.length - 1];
+        if (
+          typeof funcArgs[funcArgs.length - 1] !== returnType.name.toLowerCase()
+        ) {
+          throw new Error(
+            `incorrect type of return, expected ${
+              returnType.name
+            }, but got ${typeof funcArgs[funcArgs.length - 1]}`,
+          );
+        }
       }
     };
   }
@@ -41,17 +44,17 @@ class TypeCheckDecorator extends DecoratorClass {
   /**
    * @override
    * @param {function} func
-   * @param  {...any} typeArgs
+   * @param  {...any} typeCheckArgs
    * @returns {function} the wrapper function
    * @throws {Error} if func is not a function
    * @throws {Error} if typeArgs is empty
    */
-  wrap(func, ...typeArgs) {
-    if (typeArgs.length === 0) {
-      throw new Error("lack of type arguments");
+  wrap(func, ...typeCheckArgs) {
+    if (typeCheckArgs.length === 0) {
+      throw new Error("lack of typeCheck arguments");
     }
 
-    return super.wrap(func, ...typeArgs);
+    return super.wrap(func, ...typeCheckArgs);
   }
 }
 

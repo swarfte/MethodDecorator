@@ -61,14 +61,12 @@ class Decorator {
 
       let result = func(...funcArgs);
 
-      if (result != null) {
-        funcArgs.push(result);
-      }
+      funcArgs.push(result);
 
       if (this.afterFunc) {
         this.afterFunc.call(func, func, funcArgs, wrapArgs);
       }
-      return result;
+      return funcArgs[funcArgs.length - 1];
     };
   }
 }
