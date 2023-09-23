@@ -2,4 +2,5 @@
 .src
 .babelrc
 .eslintrc.js
-.gitignore
+node_moudles
+lib

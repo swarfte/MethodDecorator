@@ -1,6 +1,6 @@
 {
   "name": "method-decorator",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A decorator that can add more action when execute the function",
   "main": "src/index.js",
   "scripts": {
@@ -13,8 +13,7 @@
     "url": "git+https://github.com/swarfte/MethodDecorator.git"
   },
   "keywords": [
-    "decorator",
-    "babel"
+    "decorator"
   ],
   "author": "Swarfte",
   "license": "MIT",
