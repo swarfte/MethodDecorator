@@ -1,14 +1,19 @@
+/**
+ * @property {function} [before] the function that execute before the wrapped function
+ * @property {function} [after] the function that execute after the wrapped function
+ * @property {function} [wrap] wrap the function
+ */
 class Decorator {
   constructor() {
     this.beforeFunc = null;
     this.afterFunc = null;
-    this.additionalArgs = null;
-    this.result = null;
   }
 
   /**
    * the function that execute before the wrapped function
    * @param {function} func
+   * @returns {Decorator}
+   * @throws {Error} if func is not a function
    */
   before(func) {
     if (typeof func !== "function") {
@@ -21,6 +26,8 @@ class Decorator {
   /**
    * the function that execute after the wrapped function
    * @param {function} func
+   * @returns {Decorator}
+   * @throws {Error} if func is not a function
    */
   after(func) {
     if (typeof func !== "function") {
@@ -32,44 +39,41 @@ class Decorator {
 
   /**
    * wrap the function
-   * @param {function} func
-   * @returns {any} the result of func
+   * @param {function} func the function to be wrapped
+   * @param {any[]} wrapArgs the additional arguments for the beforeFunc and afterFunc
+   * @returns {function} the wrapper function
+   * @throws {Error} if func is not a function
    */
-  wrap(func, ...additionalArgs) {
+  wrap(func, ...wrapArgs) {
     if (typeof func !== "function") {
       throw new Error("func must be a function");
     }
-    this.additionalArgs = additionalArgs;
 
-    this.setup();
-
+    /**
+     * the wrapper function
+     * @param {any[]} funcArgs the arguments for the wrapped function
+     * @returns {any} the return value of the wrapped function
+     */
     return (...funcArgs) => {
       if (this.beforeFunc) {
-        this.beforeFunc.call(func, func, ...funcArgs);
+        this.beforeFunc.call(func, func, funcArgs, wrapArgs);
       }
 
-      this.result = func(...funcArgs);
+      let result = func(...funcArgs);
 
-      if (this.result != null) {
-        funcArgs.push(this.result);
+      if (result != null) {
+        funcArgs.push(result);
       }
 
       if (this.afterFunc) {
-        this.afterFunc.call(func, func, ...funcArgs);
+        this.afterFunc.call(func, func, funcArgs, wrapArgs);
       }
-      return this.result;
+      return result;
     };
   }
-
-  /**
-   * use this method to initialize the decorator,
-   * use the additionalArgs to pass the arguments to the decorator
-   * @abstract
-   */
-  setup() {}
 }
 
 module.exports = {
-  AbstractDecorator: Decorator,
+  DecoratorClass: Decorator,
   Decorator: new Decorator(),
 };

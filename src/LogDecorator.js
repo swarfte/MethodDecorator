@@ -1,29 +1,33 @@
-const { AbstractDecorator } = require("./Decorator");
+const { DecoratorClass } = require("./Decorator");
 
-class LogDecorator extends AbstractDecorator {
+/**
+ * a decorator that log the input and output of the function
+ * @extends {DecoratorClass}
+ */
+class LogDecorator extends DecoratorClass {
   constructor() {
     super();
-    this.label = null;
-    this.beforeFunc = (func, ...funcArgs) => {
-      console.log(`[${this.label}] input: [${funcArgs}]`);
+    this.beforeFunc = (func, funcArgs, wrapArgs) => {
+      console.log(`[${wrapArgs[0]}] input: [${funcArgs}]`);
     };
-    this.afterFunc = (func, ...funcArgs) => {
-      console.log(`[${this.label}] return [${funcArgs.slice(-1)}]`);
+    this.afterFunc = (func, funcArgs, wrapArgs) => {
+      console.log(`[${wrapArgs}] return [${funcArgs.slice(-1)}]`);
     };
   }
 
   /**
-   * set the label in the log
-   * @overload
+   * @override
+   * @param {function} func
+   * @param {string} label , default to func.name
+   * @returns {function} the wrapper function
+   * @throws {Error} if func is not a function
+   * @throws {Error} if label is not a string
    */
-  setup() {
-    if (
-      this.additionalArgs != null &&
-      this.additionalArgs.length > 0 &&
-      typeof this.additionalArgs[0] === "string"
-    ) {
-      this.label = this.additionalArgs[0];
+  wrap(func, label = func.name) {
+    if (typeof label !== "string") {
+      throw new Error("label must be a string");
     }
+    return super.wrap(func, label);
   }
 }
 
